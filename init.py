@@ -1,7 +1,28 @@
 import cv2
 import numpy as np
 import os
-actions = np.array(["hello", "thanks", "iloveyou"])
+actions = np.array(["xin_chào",
+                    "tên_tôi_là",
+                    "đánh_vần_ngón_tay",
+                    "T",
+                    "H",
+                    "A",
+                    "I",
+                    "_sac",
+                    "_",
+                    "vỗ_tay",
+                    "xin_lỗi",
+                    "cảm_ơn",
+                    "bạn_thật_tuyệt_vời",
+                    "rất_vui_được_gặp_bạn",
+                    "bạn_khoẻ_không",
+                    "tôi_khoẻ",
+                    "hẹn_gặp_lại",
+                    "bạn_thật_tuyệt_vời",
+                    "rất_vui_được_gặp_bạn",
+                    "bạn_khoẻ_không",
+                    "tôi_khoẻ",
+                    "hẹn_gặp_lại"])
 parameter = {
     "actions": actions,  # hành động
     "no_sequences": 30,  # số lần lấy data cho mỗi hành động

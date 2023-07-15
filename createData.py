@@ -27,7 +27,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
             for frame_num in range(FPS):
 
                 ret, frame = cap.read()
-                frame = cv2.flip(frame, 1)
+                # frame = cv2.flip(frame, 1)
                 image, results = mediapipe_detection(frame, holistic)
 
                 draw_styled_landmarks(mp_holistic, mp_drawing, image, results)

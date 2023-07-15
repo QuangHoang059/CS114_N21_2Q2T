@@ -5,6 +5,7 @@ import mediapipe as mp
 import numpy as np
 import os
 from creatmodel import create_model
+from PIL import ImageFont, ImageDraw, Image
 actions = parameter["actions"]
 model = create_model(actions)
 model.load_weights('action.h5')
@@ -12,22 +13,25 @@ mp_holistic = mp.solutions.holistic  # nhận diện toàn cơ thể
 mp_drawing = mp.solutions.drawing_utils
 
 VIDEOS_DIR = os.path.join('.', 'videos')
-video_path = os.path.join(VIDEOS_DIR, 'alpaca.mp4')
+video_path = os.path.join(VIDEOS_DIR, 'videoplayback.webm')
 FPS = parameter["FPS"]
-# video_path_out = '{}_out.mp4'.format(video_path)
+
 
 cap = cv2.VideoCapture(video_path)
-
-
+WIDTH = int(cap.get(3))
+HIGHT = int(cap.get(4))
+font_path = './font/aachenb.ttf'
+font_size = 24
+font = ImageFont.truetype(font_path, font_size)
 sequence = []
 sentence = []
-threshold = 0.8
+threshold = 0.9
 
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
     while cap.isOpened():
 
         ret, frame = cap.read()
-        frame = cv2.flip(frame, 1)
+
         image, results = mediapipe_detection(frame, holistic)
         print(results)
 
@@ -39,10 +43,23 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         sequence.append(keypoints)
         sequence = sequence[-FPS:]
 
+        cv2.rectangle(image, (0, 0), (WIDTH, 40), (245, 117, 16), -1)
+        pil_image = Image.fromarray(image)
+        draw = ImageDraw.Draw(pil_image)
+
         if len(sequence) == FPS:
             res = model.predict(np.expand_dims(sequence, axis=0))[0]
             print(actions[np.argmax(res)])
+            # lấy điểm nhỏ nhất trên mặt
+            if results.face_landmarks:
+                landmarks = results.face_landmarks.landmark
+                arr = np.array([[landmark.x, landmark.y]
+                               for landmark in landmarks])
 
+                max_x = np.max(arr[:, 0])
+                min_y = np.min(arr[:, 1])
+                draw.text((max_x*WIDTH, min_y*HIGHT),
+                          actions[np.argmax(res)], font=font, fill=(0, 0, 0))
             if res[np.argmax(res)] > threshold:
                 if len(sentence) > 0:
                     if actions[np.argmax(res)] != sentence[-1]:
@@ -53,9 +70,9 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
             if len(sentence) > 5:
                 sentence = sentence[-5:]
 
-        cv2.rectangle(image, (0, 0), (640, 40), (245, 117, 16), -1)
-        cv2.putText(image, ' '.join(sentence), (3, 30),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+        draw.text((30, 8), '   '.join(sentence),
+                  font=font, fill=(255, 255, 255))
+        image = np.array(pil_image)
 
         cv2.imshow('OpenCV Feed', image)
 
