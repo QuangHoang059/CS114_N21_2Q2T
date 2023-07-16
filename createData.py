@@ -18,6 +18,16 @@ cap = cv2.VideoCapture(0)
 
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
     for action in actions:
+        while True:
+            ret, frame = cap.read()
+            cv2.putText(frame, f'Collect action {action}', (15, 12),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
+            cv2.imshow('OpenCV Feed', frame)
+            key = cv2.waitKey(1)
+            if key == ord('c'):
+                # Lưu ảnh
+                break
+
         pathAction = os.path.join(DATA_PATH, action)
         if not os.path.exists(pathAction):
             os.makedirs(pathAction)
