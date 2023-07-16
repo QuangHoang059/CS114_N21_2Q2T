@@ -1,14 +1,15 @@
 import cv2
 import numpy as np
 import os
-actions = np.array(["xin_chào",
+# actions = np.array(["xin_chào",
+actions = np.array([
                     "tên_tôi_là",
                     "đánh_vần_ngón_tay",
-                    "T"])
-                    # "H",
-                    # "A",
-                    # "I",
-                    # "_sac",
+                    "T",
+                    "H",
+                    "A",
+                    "I",
+                    "_sac"])
 # "_",
 # "vỗ_tay",
 # "xin_lỗi",
@@ -25,7 +26,7 @@ actions = np.array(["xin_chào",
 # "hẹn_gặp_lại"])
 parameter = {
     "actions": actions,  # hành động
-    "no_sequences": 50,  # số lần lấy data cho mỗi hành động
+    "no_sequences": 100,  # số lần lấy data cho mỗi hành động
     "FPS": 30,  # số frame để train
     "DATA_PATH":  os.path.join('data')   # path data
 }

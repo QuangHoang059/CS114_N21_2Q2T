@@ -15,6 +15,7 @@ no_sequences = parameter["no_sequences"]  # số lần lấy data
 FPS = parameter["FPS"]  # só frame lấy được
 
 cap = cv2.VideoCapture(0)
+startIndex = 0
 
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
     for action in actions:
@@ -31,7 +32,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         pathAction = os.path.join(DATA_PATH, action)
         if not os.path.exists(pathAction):
             os.makedirs(pathAction)
-        for sequence in range(no_sequences):
+        for sequence in range(startIndex, no_sequences):
             if not os.path.exists(os.path.join(pathAction, str(sequence))):
                 os.makedirs(os.path.join(pathAction, str(sequence)))
             
@@ -42,7 +43,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 4, cv2.LINE_AA)
 
             cv2.imshow('OpenCV Feed', image)
-            cv2.waitKey(2000)
+            cv2.waitKey(1000)
             
             for frame_num in range(FPS):
 
