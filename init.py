@@ -41,7 +41,7 @@ def extract_keypoints(results):
     rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten(
     ) if results.right_hand_landmarks else np.zeros(21*3)
     # return np.concatenate([pose, face, lh, rh])
-    return np.concatenate([lh, rh])
+    return np.concatenate([pose, lh, rh])
 
 
 def mediapipe_detection(image, model):
