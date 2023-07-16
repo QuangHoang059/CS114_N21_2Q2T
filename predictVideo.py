@@ -4,7 +4,7 @@ from init import mediapipe_detection, draw_styled_landmarks, extract_keypoints, 
 import mediapipe as mp
 import numpy as np
 import os
-from creatmodel import create_model
+from createmodel import create_model
 from PIL import ImageFont, ImageDraw, Image
 actions = parameter["actions"]
 model = create_model(actions)

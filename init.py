@@ -8,25 +8,25 @@ actions = np.array(["xin_chào",
                     "H",
                     "A",
                     "I",
-                    "_sac",
-                    "_",
-                    "vỗ_tay",
-                    "xin_lỗi",
-                    "cảm_ơn",
-                    "bạn_thật_tuyệt_vời",
-                    "rất_vui_được_gặp_bạn",
-                    "bạn_khoẻ_không",
-                    "tôi_khoẻ",
-                    "hẹn_gặp_lại",
-                    "bạn_thật_tuyệt_vời",
-                    "rất_vui_được_gặp_bạn",
-                    "bạn_khoẻ_không",
-                    "tôi_khoẻ",
-                    "hẹn_gặp_lại"])
+                    "_sac"])
+                    # "_",
+                    # "vỗ_tay",
+                    # "xin_lỗi",
+                    # "cảm_ơn",
+                    # "bạn_thật_tuyệt_vời",
+                    # "rất_vui_được_gặp_bạn",
+                    # "bạn_khoẻ_không",
+                    # "tôi_khoẻ",
+                    # "hẹn_gặp_lại",
+                    # "bạn_thật_tuyệt_vời",
+                    # "rất_vui_được_gặp_bạn",
+                    # "bạn_khoẻ_không",
+                    # "tôi_khoẻ",
+                    # "hẹn_gặp_lại"])
 parameter = {
     "actions": actions,  # hành động
     "no_sequences": 30,  # số lần lấy data cho mỗi hành động
-    "FPS": 30,  # số frame để train
+    "FPS": 40,  # số frame để train
     "DATA_PATH":  os.path.join('data')   # path data
 }
 
