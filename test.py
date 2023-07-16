@@ -4,11 +4,11 @@ import cv2
 from init import mediapipe_detection, draw_styled_landmarks, extract_keypoints, parameter
 import mediapipe as mp
 import numpy as np
-from createmodel import create_model
+from createModel import create_model
 from PIL import ImageFont, ImageDraw, Image
 actions = parameter["actions"]
 model = create_model(actions)
-# model.load_weights('action.h5')
+model.load_weights('action.h5')
 mp_holistic = mp.solutions.holistic  # nhận diện toàn cơ thể
 mp_drawing = mp.solutions.drawing_utils
 
