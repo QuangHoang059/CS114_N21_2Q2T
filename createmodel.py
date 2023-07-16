@@ -13,7 +13,7 @@ from init import parameter
 #     model.add(Dense(32, activation='relu'))
 #     model.add(Dense(actions.shape[0], activation='softmax'))
 #     return model
-def create_model(actions, FPS):
+def create_model(actions):
     model = Sequential()
     model.add(LSTM(64, return_sequences=True,
               activation='relu', input_shape=(parameter["FPS"], 126+33*4)))
